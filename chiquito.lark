@@ -1,0 +1,40 @@
+start: stmt+
+
+?stmt: output
+    | while_
+    | if_
+    | op_
+    | assign_
+
+output: "TE" "DA" "CUEN" expr
+
+while_: "AL" "ATAQUERL" cond "TORPEDO" block "NO" "PUEDOR"
+
+if_: "FISTRO" cond "PECADOR" block "DE LA PRADERA"
+
+op_: OP
+
+OP: "COBARDE"|"POR LA GLORIA DE MI MADRE"
+
+assign_: "CANDEMOR" NUMBER
+
+?cond: NUMBER
+    | "NORL" -> false
+    | "JARL" -> true
+    | "AGROMENAUER" -> var
+
+block: stmt+
+
+?expr: NUMBER
+    | STRING -> string
+    | "AGROMENAUER" -> var
+
+%import common.CNAME
+%import common.NUMBER
+%import common.ESCAPED_STRING -> STRING
+%import common.NEWLINE
+%import common.WS_INLINE
+
+%ignore WS_INLINE
+%ignore NEWLINE
+%ignore /\~[^\n]*/
